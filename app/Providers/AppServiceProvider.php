@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,10 +21,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (Role::where('name', 'admin')->count() === 0) {
-            Role::create(['name' => 'admin']);
-            Role::create(['name' => 'client']);
-            Role::create(['name' => 'customer-support']);
+        try {
+            DB::connection()->getPdo();
+            
+            if (Role::where('name', 'admin')->count() === 0) {
+                Role::create(['name' => 'admin']);
+                Role::create(['name' => 'client']);
+                Role::create(['name' => 'customer-support']);
+            }
+        } catch (\Exception $e) {
+
         }
     }
 }

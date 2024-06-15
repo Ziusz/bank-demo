@@ -13,22 +13,37 @@ My simple project of bank app made that use CRUD in Laravel for completing unive
 ## Requirements
 - PHP 8.2+
 - Composer
+- Node.js 20.11+
+- npm
 
 ## Installation
 
 - Clone repo
+- Set up the new configuration file
+``` 
+cp .env.example .env 
+```
+- Update and uncomment database values in new created .env file
 - Install all PHP dependencies via composer
 ```
 composer install
 ```
-- Set up the new configuration file
-``` 
-cp env.example .env 
-```
-- Change database values in new created .env file
 - Run migrations
 ```
 php artisan migrate
+```
+- Create new encryption key
+```bash
+php artisan key:generate
+php artisan config:cache
+```
+- Install all Node.js dependencies via npm
+```
+npm install
+```
+- Create manifest.json file
+```
+npm run build
 ```
 - Serve website
 ```
